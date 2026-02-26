@@ -52,7 +52,7 @@ pop <- read_csv("data/nst-est2016-alldata.csv", show_col_types = FALSE) |>
     OTHER = RESIDUAL2016
   ) |>
     mutate(
-      us_birth_rate <- (pop |> pull(BIRTHS) |> sum()) / (pop |> pull(`2015`) |> sum()) = na_if(REGION, "X"),
+      REGION = na_if(REGION, "X"),
       REGION = factor(
         REGION,
         levels = c("1", "2", "3", "4"),
@@ -71,8 +71,6 @@ movers <- NULL
 west_births <- NULL
 
 # Q4: plot of birth rate vs death rate
-pop_rates <- NULL
-
 p_birth_death <- NULL
 
 # -------------------------------------------------------------------
@@ -90,16 +88,7 @@ films <- read_delim(
   mutate(across(where(is.character), ~ iconv(.x, from = "Latin1", to = "UTF-8", sub = "")))
 
 # Q1: Clean and arrange the data
-cleaned_films <- films |> 
-    mutate(Length = as.integer(Length),
-           Popularity = as.integer(Popularity),
-            Year = as.integer(Year),
-            Subject = factor(Subject),
-            Awards = ifelse(Awards == "Yes", TRUE, FALSE)) |>
-    select(-`*Image`) |>
-    rename(Genre = Subject) |>
-    filter(!is.na(Length), !is.na(Genre)) |>
-    arrange(Title)
+cleaned_films <- NULL
 
 
 # Q1: Movie length distributions across genres
